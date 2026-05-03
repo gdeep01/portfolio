@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gagan Deep — Portfolio
 
-## Getting Started
+Personal portfolio and blog built with Next.js 14. Dark HUD aesthetic, three live projects, two case studies.
 
-First, run the development server:
+---
+
+## Stack
+
+Next.js 14 (App Router), Tailwind CSS, Framer Motion, MDX with remark-gfm, deployed on Vercel.
+
+---
+
+## Structure
+
+- `src/app/page.tsx` — Main single-page layout
+- `src/app/blog/page.tsx` — Blog listing
+- `src/app/blog/[slug]` — Individual post pages
+- `src/components/` — Navbar, Hero, About, Projects, Skills, Contact
+- `src/data/projects.ts` — Project cards data
+- `src/data/skills.ts` — Skills categories data
+- `src/content/blog/` — MDX posts
+
+---
+
+## Running Locally
 
 ```bash
+git clone https://github.com/gdeep01/portfolio
+cd portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Adding a Blog Post
 
-## Learn More
+Create a new `.mdx` file in `/content/blog/` with this frontmatter:
 
-To learn more about Next.js, take a look at the following resources:
+```yaml
+---
+title: "Your Post Title"
+date: "2026-05-03"
+tag: "Case Study"
+excerpt: "One line summary shown on the blog listing page."
+---
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The slug comes from the filename. `my-new-post.mdx` becomes `/blog/my-new-post`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Projects Featured
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Bindaas BLR** — Real-time civic intelligence PWA for Bengaluru
+  - **Stack:** React, FastAPI, Supabase, PostgreSQL, TomTom API, Gemini
+  - **Live:** [https://bindaas-blr.vercel.app](https://bindaas-blr.vercel.app)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Where Is My Bus** — Zero-backend real-time GPS bus tracker
+  - **Stack:** Firebase, Leaflet, Geolocation API
+  - **Live:** [https://where-is-my-bus-beryl.vercel.app](https://where-is-my-bus-beryl.vercel.app)
+
+- **InventAI** — Demand forecasting for Indian retailers
+  - **Stack:** FastAPI, ARIMA, Supabase, Gemini
+  - **Live:** [https://invent-ai-gd.vercel.app](https://invent-ai-gd.vercel.app)
+
+---
+
+## Contact
+
+- **Email:** gdeepg19@gmail.com
+- **GitHub:** [https://github.com/gdeep01](https://github.com/gdeep01)
+- **LinkedIn:** [https://linkedin.com/in/gagan-deep-755130296](https://linkedin.com/in/gagan-deep-755130296)
