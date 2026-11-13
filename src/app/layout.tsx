@@ -3,13 +3,17 @@ import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ScrollToTop } from "@/components/ScrollToTop";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-head" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-code" });
+
+const siteUrl = "https://gagandeep-msrit.vercel.app";
+const siteDescription = "A portfolio of products and prototypes shaped by real-world problems, conversations, and hands-on engineering.";
 
 export const metadata: Metadata = {
-  title: "Gagan Deep | Full-Stack Developer",
-  description: "Final-year EIE student at MSRIT. I build full-stack products that real people use.",
+  metadataBase: new URL(siteUrl),
+  title: "Gagan Deep — Product Portfolio",
+  description: siteDescription,
   icons: {
     icon: [
       { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -20,14 +24,15 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon/site.webmanifest",
   openGraph: {
-    title: "Gagan Deep | Full-Stack Developer",
-    description: "Final-year EIE student at MSRIT. I build full-stack products that real people use.",
-    url: "https://gagandeep.dev",
+    title: "Gagan Deep — Product Portfolio",
+    description: siteDescription,
+    url: siteUrl,
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Gagan Deep | Full-Stack Developer",
+    title: "Gagan Deep — Product Portfolio",
+    description: siteDescription,
   },
 };
 
@@ -37,16 +42,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: 
         JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Person",
           "name": "Gagan Deep",
-          "jobTitle": "Full-Stack Developer",
-          "email": "gdeepg19@gmail.com",
-          "url": "https://gagandeep.dev",
+          "jobTitle": "Product-minded Engineer",
+          "url": siteUrl,
           "sameAs": [
             "https://github.com/gdeep01",
             "https://linkedin.com/in/gagan-deep-755130296"
@@ -57,12 +61,8 @@ export default function RootLayout({
           }
         })}} />
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} bg-black text-white selection:bg-accent selection:text-black`}>
-        <div className="scanlines" />
-        <div className="fixed inset-0 grid-bg pointer-events-none z-0" />
-        <main className="relative z-10" role="main">
-          {children}
-        </main>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}>
+        {children}
         <ScrollToTop />
       </body>
     </html>

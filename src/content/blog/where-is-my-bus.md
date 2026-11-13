@@ -1,17 +1,11 @@
 ---
-title: "Where Is My Bus: No Backend, No Problem"
-date: "2026-04-10"
-tag: "Case Study"
-excerpt: "How I built a real-time GPS bus tracker for zero cost by using Firebase as the entire backend."
+title: "Where Is My Bus?: Could a conductor’s phone do the job?"
+tag: "Where Is My Bus?"
+excerpt: "My research put dedicated GPS units at around ₹15,000–25,000 per bus. I tried a pilot using a conductor’s phone instead."
 ---
-## The Problem
-GPS hardware for buses costs Rs. 15,000-25,000 per unit. Small operators cannot afford it. I needed a zero-cost alternative.
 
-## The Architecture Decision
-Instead of building a backend, I used Firebase Realtime Database as the entire infrastructure. The conductor's browser writes GPS coordinates every 5 seconds via the Geolocation API. Passengers subscribe via onValue listeners. Latency under 5 seconds.
+My research described dedicated GPS units as costing around ₹15,000–25,000 per bus. I wondered whether a conductor’s existing phone could share a bus location with riders.
 
-## The Clever Part
-The real engineering challenge was stale data. If a conductor closes their browser mid-trip, the last known location stays in the database forever. I solved this with Firebase onDisconnect handlers — registered on every write, they automatically delete the record the moment the connection drops.
+I tried the idea with friends and spoke with conductors in Shivamogga. The project uses JavaScript, Firebase and Leaflet: the conductor shares a location, and riders see it on a map.
 
-## Result
-Full real-time bus tracking. Zero backend. Zero cost. Deployed on Firebase free tier.
+Replacing the GPS unit wasn’t the only challenge. Tracking is useful when enough buses consistently share their locations.

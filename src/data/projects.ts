@@ -1,26 +1,26 @@
 export const projects = [
   {
     title: "Bindaas BLR",
-    description: "Traffic insights and live city monitoring platform for Bangalore.",
+    description: "Live traffic, maps, commute planning, weather and civic information for Bengaluru, with data-based congestion predictions and TomTom traffic data.",
     image: "/projects/bindaas.png",
     link: "https://bindaas-blr.vercel.app",
-    tech: ["React", "FastAPI", "Supabase", "PostgreSQL", "TomTom API", "Gemini"],
-    stats: "408+ active users",
+    tech: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Supabase Edge Functions", "Leaflet", "Recharts"],
+    stats: "408+ weekly active users",
   },
   {
     title: "Where Is My Bus",
-    description: "Zero-backend real-time GPS bus tracker using Leaflet and Firebase.",
+    description: "A pilot using a conductor's phone to share a bus's live location, so passengers can check where their bus is.",
     image: "/projects/bus.png",
     link: "https://where-is-my-bus-beryl.vercel.app",
-    tech: ["Firebase", "Leaflet", "Geolocation API"],
+    tech: ["React 18", "Firebase Realtime Database", "Leaflet", "OpenStreetMap", "Vite"],
     stats: "Live Tracking",
   },
   {
     title: "InventAI",
-    description: "Demand forecasting and inventory management for Indian retailers.",
+    description: "Inventory forecasts, mandi prices from OGD India and a Gemini-powered assistant to help retailers make stock decisions.",
     image: "/projects/invent.png",
     link: "https://invent-ai-gd.vercel.app",
-    tech: ["FastAPI", "ARIMA", "Supabase", "Gemini"],
+    tech: ["React 19", "Vite", "FastAPI", "SQLAlchemy", "PostgreSQL", "ARIMA", "Gemini API"],
     stats: "Retail Optimization",
   },
 ];

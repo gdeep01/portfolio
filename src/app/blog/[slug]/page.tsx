@@ -1,80 +1,59 @@
-import { getPostData, getSortedPostsData } from "@/lib/blog";
-import { Navbar } from "@/components/Navbar";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Calendar } from "lucide-react";
+import { notFound } from "next/navigation";
+import { HomeNav } from "@/components/home/HomeNav";
+import { getPostData, getSortedPostsData } from "@/lib/blog";
 
-export async function generateStaticParams() {
-  const posts = getSortedPostsData();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getSortedPostsData().map(({ slug }) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostData(slug);
-  return {
-    title: post.title,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
+  try {
+    const post = await getPostData(slug);
+    return {
+      title: `${post.title} — Gagan Deep`,
       description: post.excerpt,
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-    },
-  };
+      alternates: { canonical: `/blog/${slug}` },
+      openGraph: { title: post.title, description: post.excerpt, type: "article" },
+    };
+  } catch {
+    return { title: "Field note not found" };
+  }
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPostData(slug);
+  let post;
+  try {
+    post = await getPostData(slug);
+  } catch {
+    notFound();
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white pt-24">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: 
-        JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": post.title,
-          "datePublished": post.date,
-          "description": post.excerpt,
-          "author": {
-            "@type": "Person",
-            "name": "Gagan Deep"
-          }
-        })
-      }} />
-      <Navbar />
-      
-      <main className="max-w-3xl mx-auto px-8 pt-8 pb-16" role="main">
-        <Link href="/blog" className="inline-flex items-center text-accent hover:underline mb-12 font-mono text-xs tracking-widest">
-          <ArrowLeft size={14} className="mr-2" /> RETURN TO LOGS
-        </Link>
-
-        <header className="border-b-2 border-orange-500 pb-6 mb-10">
-          <div className="flex items-center gap-4 text-[10px] font-mono text-accent uppercase tracking-widest mb-6">
-            <Calendar size={12} />
-            {post.date} | {post.tag}
-          </div>
-          <h1 className="text-5xl font-bold mb-8 leading-tight tracking-tighter">
-            {post.title}
-          </h1>
-        </header>
-
-        <article 
-          className="prose prose-invert prose-orange max-w-none
-            prose-h2:text-orange-400 prose-h2:font-mono prose-h2:text-sm prose-h2:tracking-widest prose-h2:uppercase prose-h2:mt-10 prose-h2:mb-4
-            prose-p:text-gray-300 prose-p:leading-8 prose-p:mb-6
-            prose-li:text-gray-300 prose-li:mb-2
-            prose-strong:text-accent
-            prose-ul:mb-6"
-          dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }} 
-        />
+    <div className="site-page editorial-page" id="top">
+      <a className="skip-link" href="#article-content">Skip to article</a>
+      <HomeNav />
+      <main id="article-content" className="editorial-main site-container">
+        <article className="editorial-article">
+          <Link className="case-back-link" href="/blog"><span aria-hidden="true">←</span> All field notes</Link>
+          <header className="editorial-article-heading">
+            <div className="editorial-meta">{post.tag}{post.date && <><span aria-hidden="true">·</span><time>{post.date}</time></>}</div>
+            <h1>{post.title}</h1>
+            <p>{post.excerpt}</p>
+          </header>
+          <div className="prose editorial-prose" dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }} />
+          <footer className="editorial-article-end">
+            <span className="eyebrow">Keep exploring</span>
+            <Link className="text-link" href="/#work">Selected work <span aria-hidden="true">↗</span></Link>
+          </footer>
+        </article>
       </main>
+      <footer className="site-container site-footer"><span>© {new Date().getFullYear()} Gagan Deep</span><span>Built from real work, with care.</span><Link href="/#top">Back to top ↑</Link></footer>
     </div>
   );
 }

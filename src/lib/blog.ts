@@ -10,7 +10,7 @@ const postsDirectory = path.join(process.cwd(), "src/content/blog");
 export interface PostData {
   slug: string;
   title: string;
-  date: string;
+  date?: string;
   tag: string;
   excerpt: string;
   contentHtml?: string;
@@ -30,11 +30,16 @@ export function getSortedPostsData() {
 
     return {
       slug,
-      ...(matterResult.data as { title: string; date: string; tag: string; excerpt: string }),
+      ...(matterResult.data as { title: string; date?: string; tag: string; excerpt: string }),
     };
   });
 
-  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return allPostsData.sort((a, b) => {
+    const dateA = a.date ?? "";
+    const dateB = b.date ?? "";
+    if (dateA === dateB) return a.slug.localeCompare(b.slug);
+    return dateA < dateB ? 1 : -1;
+  });
 }
 
 export async function getPostData(slug: string) {
@@ -51,6 +56,6 @@ export async function getPostData(slug: string) {
   return {
     slug,
     contentHtml,
-    ...(matterResult.data as { title: string; date: string; tag: string; excerpt: string }),
+    ...(matterResult.data as { title: string; date?: string; tag: string; excerpt: string }),
   };
 }
