@@ -1,21 +1,13 @@
 ---
-title: "Building Bindaas BLR: Scaling Traffic Insights"
-date: "2024-03-20"
-tag: "Case Study"
-excerpt: "How I built a live traffic monitoring platform for Bangalore that scaled to 400+ active users using FastAPI and Supabase."
+title: "Bindaas BLR: The crowd that started the question"
+tag: "Bindaas BLR"
+excerpt: "The unexpectedly large crowd at the 2025 RCB parade made me wonder if people could get an indication of where Bengaluru traffic might build."
 ---
 
-Bindaas BLR was born out of a simple frustration: Bangalore's traffic is unpredictable. While Google Maps gives you a route, it doesn't give you the *vibe* of the city's congestion at a glance.
+The 2025 RCB parade brought far more people together in one place than expected. I wondered whether people could get an indication of where Bengaluru traffic might build. That became the starting point for Bindaas BLR.
 
-## The Tech Stack
+Bindaas brings together live traffic, maps, commute planning, weather and civic information for Bengaluru. Its congestion prediction feature uses data to indicate where traffic may build, and TomTom provides the traffic and hotspot data.
 
-- **Frontend**: Next.js with Leaflet for map rendering.
-- **Backend**: FastAPI (Python) for high-performance data processing.
-- **Database**: Supabase (PostgreSQL) for real-time updates and auth.
-- **AI**: Gemini API for summarizing traffic incidents into human-readable alerts.
+As I looked at usage, traffic and maps were the features people used most, so I focused on those. I decided against adding BESCOM outage alerts because I couldn’t rely on the information being fresh enough.
 
-## Challenges
-
-Scaling to 400+ users meant optimizing the TomTom API calls to stay within free tier limits while maintaining real-time accuracy. I implemented a caching layer and a "stale-while-revalidate" pattern for traffic data.
-
-Stay tuned for more deep dives into the architecture.
+The product reached 3,818 users in its first three months, with 408+ weekly active users.
