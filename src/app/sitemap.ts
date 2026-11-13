@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { caseStudies } from "@/data/case-studies";
 import { getSortedPostsData } from "@/lib/blog";
 
-const baseUrl = "https://gagandeep-msrit.vercel.app";
+const baseUrl = "https://portfolio-gdeeps-projects.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const workPages = caseStudies.map(({ slug }) => ({
